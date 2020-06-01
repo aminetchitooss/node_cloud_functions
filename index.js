@@ -12,5 +12,5 @@ const db = admin.firestore()
 //
 exports.helloWorld = functions.https.onRequest((request, response) => {
     // db.collection('test').doc("123").set({name:"test"})
-    response.end("Hello from Firebase!");
+    response.send("Hello from Firebase!");
 });
