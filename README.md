@@ -3,9 +3,12 @@
 
 ## So in a nutshell I'm using:
 
-  > Google voice assistant with Dialog flow (webhook)
+  > **dialogFlow** to communicate Google voice assistant with Dialog flow (webhook)
 
+  > **ngrok** to run Dialog flow fulfilment and debug it locally
 
+      ngrok http 4200 -host-header="localhost:4200"
+      ngrok http --host-header=rewrite 4200
 
 
 ## How to use
@@ -18,14 +21,32 @@ project_id  :  XXXX
 privateKey  :  -----BEGIN PRIVATE KEY-----\XXXXXX
 clientEmail :  firebase-adminsdk- XXXX
 ```
-  then run these commands 
+  > Run locally
   
-```bash
-npm i
+        firebase emulators:start --only functions
+        
+  > Debugging in VS Code
+ 
+ ### 1- Create a new launch configuration (in the <ins>launch.json</ins> file) for your project:
+ 
+       {
+        "configurations": [
+          {
+            "name": "Debug Function",
+            "type": "node",
+            "request": "attach",
+            "port": 9229
+          }
+        ]
+      }
+      
+ ### 2- Run these commands
 
-npm start
-
-#with nodemon (restart server with every save)
-npm run dev
-
-```
+      
+      functions deploy --trigger-http --timeout 600s helloWorld
+      functions inspect helloWorld
+      
+      #to reset
+      functions reset helloWorld
+      
+### 3- Click on debug in VSCode
